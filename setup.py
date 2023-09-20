@@ -1,15 +1,15 @@
 from setuptools import setup, find_packages
-from typing import List, Text
+from typing import List
 
 HYPEN_E_DOT='-e .'
 
 
-def get_requiremet(file_path:str)->List[str]:
+def get_requirement(file_path:str)->List[str]:
     requirements = []
     with open(file_path) as f:
         requirements=f.readlines()
         requirements=[req.replace("\n","")for req in requirements]
-        
+        print("Inside setup.py ",requirements)
         if HYPEN_E_DOT in requirements:
             requirements.remove(HYPEN_E_DOT)
         
@@ -20,6 +20,6 @@ setup(
     version="0.0.1",
     author="ram",
     author_email="ramprakash.krishnamurthy@rntbci.com",
-    install_requires=get_requiremet("requirements.txt"),
+    install_requires=get_requirement("requirements.txt"),
     packages=find_packages()
 )

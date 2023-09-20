@@ -1,5 +1,9 @@
 pandas
 numpy
 Flask
+urllib
+seaborn
+matplotlib
+beautifulsoup
 
 - e .
