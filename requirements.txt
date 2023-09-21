@@ -1,9 +1,10 @@
 pandas
 numpy
 Flask
-urllib
 seaborn
+dill
 matplotlib
-beautifulsoup
+ipykernel
+scikit-learn
 
 - e .

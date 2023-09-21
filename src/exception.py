@@ -1,25 +1,30 @@
-import logging
-import os
-from datetime import datetime 
+import sys
+from logger import logging
 
+def error_message_detail(error,error_detail:sys):
+    _,_,exc_tb = error_detail.exc_info()
+    file_name = exc_tb.tb_frame.f_code.co_filename
 
-# Configure the logger
-logging.basicConfig(level=logging.INFO, filename='app.log', filemode='w', format='%(asctime)s - %(levelname)s: %(message)s')
+    error_message = "Error occured in python script name [{0}] line number [{1}] error message [{2}]".format(
+        file_name, exc_tb.tb_lineno, str(error)
+    )
 
-# Create a logger object
-logger = logging.getLogger(__name__)
+    return error_message
 
-# Define log levels
-# logger.debug('This is a debug message')  # Uncomment for debug messages
-# logger.info('This is an info message')    # Uncomment for info messages
-# logger.warning('This is a warning message')
-# logger.error('This is an error message')
-# logger.critical('This is a critical message')
+class CustomException(Exception):
+    
+    def __init__(self, error_message, error_detail:sys):
+        super().__init__(error_message)
+        self.error_message = error_message_detail(error_message, error_detail=error_detail)
 
-# Example usage in a script
-if __name__ == "__main__":
-    logger.info('Logger initialized successfully')
+    def __str__(self):
+        return self.error_message    
+    
+
+if __name__=="__main__":
+    logging.info("Logging has started")
     try:
-        result = 10 / 0  # Simulate an error
+        a=1/0
     except Exception as e:
-        logger.error('An error occurred: %s', str(e))
+        logging.info('Dicision by zero') 
+        raise CustomException(e,sys)
